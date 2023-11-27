@@ -8,9 +8,11 @@ function App() {
   const [cardSet, setCardSet] = useState<string>("one");
   const [cardRarity, setCardRarity] = useState<string>("");
   const [cardName, setCardName] = useState<string>("");
+  const [cardsPage, setCardsPage] = useState<string>("1");
 
   const debouncedCardName = useDebouncedCallback((value) => {
     setCardName(value);
+    setCardsPage("1");
   }, 500);
 
   interface CardData {
@@ -28,16 +30,16 @@ function App() {
   }
 
   const { isLoading, error, data, isFetching } = useQuery({
-    queryKey: ["cardData", cardSet, cardRarity, cardName],
-    staleTime: 120000,
+    queryKey: ["cardData", cardSet, cardRarity, cardName, cardsPage],
     queryFn: () =>
       axios
         .get(
           `https://api.scryfall.com/cards/search?q=set%3A${cardSet}+${cardName}${
             cardRarity ? "+rarity%3A" + cardRarity : ""
-          }&unique=cards&order=set`,
+          }&unique=cards&order=set&page=${cardsPage}`,
         )
         .then((res) => res.data),
+    staleTime: 600000, // 10 minutes
   });
 
   return (
@@ -51,7 +53,9 @@ function App() {
             className="flex-0 h-10 rounded-md border-2 border-gray-500 px-2"
             type="text"
             defaultValue={cardName}
-            onChange={(e) => debouncedCardName(e.target.value)}
+            onChange={(e) => {
+              debouncedCardName(e.target.value);
+            }}
             placeholder="e.g. 'Goblin'"
           />
         </div>
@@ -61,7 +65,10 @@ function App() {
           <select
             className="flex-0 h-10 rounded-md border-2 border-gray-500 px-2"
             value={cardSet}
-            onChange={(e) => setCardSet(e.target.value)}
+            onChange={(e) => {
+              setCardSet(e.target.value);
+              setCardsPage("1");
+            }}
           >
             <option value="dmu">Dominaria United</option>
             <option value="bro">The Brothers' War</option>
@@ -78,7 +85,10 @@ function App() {
           <select
             className="flex-0 h-10 rounded-md border-2 border-gray-500 px-2"
             value={cardRarity}
-            onChange={(e) => setCardRarity(e.target.value)}
+            onChange={(e) => {
+              setCardRarity(e.target.value);
+              setCardsPage("1");
+            }}
           >
             <option value=""></option>
             <option value="c">Common</option>
@@ -120,7 +130,30 @@ function App() {
         ))}
       </div>
 
-      <a href={data?.next_page}>Next Page</a>
+      <div className="my-10">
+        {/* <a
+          className="inline-flex h-10 cursor-pointer items-center justify-center rounded-md bg-white px-4 shadow-md"
+          href={data?.next_page}
+          onClick={(e) => {
+            e.preventDefault();
+            setCardsPage((prev) => (parseInt(prev) - 1).toString());
+          }}
+        >
+          Previous Page
+        </a> */}
+
+        {data?.has_more && (
+          <a
+            className="inline-flex h-10 cursor-pointer items-center justify-center rounded-md bg-white px-4 shadow-md"
+            onClick={(e) => {
+              e.preventDefault();
+              setCardsPage((prev) => (parseInt(prev) + 1).toString());
+            }}
+          >
+            Next Page
+          </a>
+        )}
+      </div>
 
       <ReactQueryDevtools initialIsOpen={true} />
 
