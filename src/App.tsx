@@ -3,9 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useDebouncedCallback } from "use-debounce";
 import axios from "axios";
+import Card from "./Card";
+import { CardData } from "./types";
 
 function App() {
-  const [cardSet, setCardSet] = useState<string>("one");
+  const [cardSet, setCardSet] = useState<string>("lci");
   const [cardRarity, setCardRarity] = useState<string>("");
   const [cardName, setCardName] = useState<string>("");
   const [cardsPage, setCardsPage] = useState<number>(1);
@@ -14,21 +16,6 @@ function App() {
     setCardName(value);
     setCardsPage(1);
   }, 500);
-
-  interface CardData {
-    id: string;
-    name: string;
-    image_uris?: {
-      normal: string;
-    };
-    card_faces?: [
-      {
-        image_uris?: {
-          normal: string;
-        };
-      },
-    ];
-  }
 
   const { isLoading, error, data, isFetching } = useQuery({
     queryKey: ["cardData", cardSet, cardRarity, cardName, cardsPage],
@@ -70,13 +57,13 @@ function App() {
               setCardsPage(1);
             }}
           >
-            <option value="dmu">Dominaria United</option>
-            <option value="bro">The Brothers' War</option>
-            <option value="one">Phyrexia: All Will Be One </option>
-            <option value="mom">March of the Machine</option>
-            <option value="mat">March of the Machine: The Aftermath</option>
-            <option value="woe">Wilds of Eldraine</option>
             <option value="lci">The Lost Caverns of Ixalan</option>
+            <option value="woe">Wilds of Eldraine</option>
+            <option value="mat">March of the Machine: The Aftermath</option>
+            <option value="mom">March of the Machine</option>
+            <option value="one">Phyrexia: All Will Be One </option>
+            <option value="bro">The Brothers' War</option>
+            <option value="dmu">Dominaria United</option>
           </select>
         </div>
 
@@ -102,22 +89,10 @@ function App() {
       {isLoading && <div>Loading...</div>}
       {error && <div>{`An error has occurred: ${error.message}`}</div>}
       {isFetching && <div>Fetching...</div>}
+
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:grid-cols-5">
         {data?.data.map((card: CardData) => (
-          <div key={card?.id} className="relative aspect-[0.72] w-full">
-            <div className="absolute inset-0 rounded-md border border-slate-300  bg-slate-200 lg:rounded-lg" />
-            <img
-              className="relative block w-full rounded-md lg:rounded-lg"
-              title={card?.name}
-              alt={card?.name}
-              loading="lazy"
-              src={
-                card?.image_uris
-                  ? card?.image_uris?.normal
-                  : card?.card_faces[0]?.image_uris?.normal
-              }
-            ></img>
-          </div>
+          <Card key={card?.id} card={card} />
         ))}
       </div>
 
