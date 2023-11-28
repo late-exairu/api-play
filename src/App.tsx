@@ -104,9 +104,10 @@ function App() {
       {isFetching && <div>Fetching...</div>}
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:grid-cols-5">
         {data?.data.map((card: CardData) => (
-          <div key={card?.id} className="aspect-square w-full">
+          <div key={card?.id} className="relative aspect-[0.72] w-full">
+            <div className="absolute inset-0 rounded-md border border-slate-300  bg-slate-200 lg:rounded-lg" />
             <img
-              className="block w-full rounded-md lg:rounded-lg"
+              className="relative block w-full rounded-md lg:rounded-lg"
               title={card?.name}
               alt={card?.name}
               loading="lazy"
