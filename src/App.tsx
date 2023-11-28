@@ -77,7 +77,7 @@ function App() {
               setCardsPage(1);
             }}
           >
-            <option value=""></option>
+            <option value="">Any</option>
             <option value="c">Common</option>
             <option value="u">Uncommon</option>
             <option value="r">Rare</option>
