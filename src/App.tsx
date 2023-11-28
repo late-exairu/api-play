@@ -18,13 +18,14 @@ function App() {
   interface CardData {
     id: string;
     name: string;
-    next_page: string;
-    image_uris: {
+    image_uris?: {
       normal: string;
     };
-    card_faces: [
-      image_uris: {
-        normal: string;
+    card_faces?: [
+      {
+        image_uris?: {
+          normal: string;
+        };
       },
     ];
   }
@@ -45,7 +46,6 @@ function App() {
   return (
     <div className="py-1">
       <h1 className="mt-5 text-3xl font-bold">MTG Standard cards search</h1>
-
       <div className="my-10 flex flex-wrap gap-2">
         <div className="flex flex-col">
           <label className="text-sm">Card name</label>
@@ -99,18 +99,9 @@ function App() {
         </div>
       </div>
 
-      {/* <div className="my-10">
-        {cardName}
-        <br />
-        {cardSet}
-        <br />
-        {cardRarity}
-      </div> */}
-
       {isLoading && <div>Loading...</div>}
       {error && <div>{`An error has occurred: ${error.message}`}</div>}
       {isFetching && <div>Fetching...</div>}
-
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:grid-cols-5">
         {data?.data.map((card: CardData) => (
           <div key={card?.id} className="aspect-square w-full">
@@ -125,22 +116,23 @@ function App() {
                   : card?.card_faces[0]?.image_uris?.normal
               }
             ></img>
-            {/* <p>{card?.card_faces ? "true" : "false"}</p> */}
           </div>
         ))}
       </div>
 
       <div className="my-10">
-        {/* <a
-          className="inline-flex h-10 cursor-pointer items-center justify-center rounded-md bg-white px-4 shadow-md"
-          href={data?.next_page}
-          onClick={(e) => {
-            e.preventDefault();
-            setCardsPage((prev) => (parseInt(prev) - 1).toString());
-          }}
-        >
-          Previous Page
-        </a> */}
+        {cardsPage != "1" && (
+          <a
+            className="inline-flex h-10 cursor-pointer items-center justify-center rounded-md bg-white px-4 shadow-md"
+            href={data?.next_page}
+            onClick={(e) => {
+              e.preventDefault();
+              setCardsPage((prev) => (parseInt(prev) - 1).toString());
+            }}
+          >
+            Previous Page
+          </a>
+        )}
 
         {data?.has_more && (
           <a
@@ -156,8 +148,6 @@ function App() {
       </div>
 
       <ReactQueryDevtools initialIsOpen={true} />
-
-      {/* {data && JSON.stringify(data)} */}
     </div>
   );
 }
