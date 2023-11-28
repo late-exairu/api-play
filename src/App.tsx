@@ -8,11 +8,11 @@ function App() {
   const [cardSet, setCardSet] = useState<string>("one");
   const [cardRarity, setCardRarity] = useState<string>("");
   const [cardName, setCardName] = useState<string>("");
-  const [cardsPage, setCardsPage] = useState<string>("1");
+  const [cardsPage, setCardsPage] = useState<number>(1);
 
   const debouncedCardName = useDebouncedCallback((value) => {
     setCardName(value);
-    setCardsPage("1");
+    setCardsPage(1);
   }, 500);
 
   interface CardData {
@@ -67,7 +67,7 @@ function App() {
             value={cardSet}
             onChange={(e) => {
               setCardSet(e.target.value);
-              setCardsPage("1");
+              setCardsPage(1);
             }}
           >
             <option value="dmu">Dominaria United</option>
@@ -87,7 +87,7 @@ function App() {
             value={cardRarity}
             onChange={(e) => {
               setCardRarity(e.target.value);
-              setCardsPage("1");
+              setCardsPage(1);
             }}
           >
             <option value=""></option>
@@ -121,13 +121,13 @@ function App() {
       </div>
 
       <div className="my-10">
-        {cardsPage != "1" && (
+        {cardsPage != 1 && (
           <a
             className="inline-flex h-10 cursor-pointer items-center justify-center rounded-md bg-white px-4 shadow-md"
             href={data?.next_page}
             onClick={(e) => {
               e.preventDefault();
-              setCardsPage((prev) => (parseInt(prev) - 1).toString());
+              setCardsPage((prev) => prev - 1);
             }}
           >
             Previous Page
@@ -139,7 +139,7 @@ function App() {
             className="inline-flex h-10 cursor-pointer items-center justify-center rounded-md bg-white px-4 shadow-md"
             onClick={(e) => {
               e.preventDefault();
-              setCardsPage((prev) => (parseInt(prev) + 1).toString());
+              setCardsPage((prev) => prev + 1);
             }}
           >
             Next Page
