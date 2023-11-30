@@ -1,6 +1,9 @@
-export type CardData = {
+export interface ICardData {
   id: string;
   name: string;
+  oracle_text?: string;
+  artist?: string;
+  flavor_text?: string;
   image_uris?: {
     normal: string;
   };
@@ -16,4 +19,4 @@ export type CardData = {
       };
     },
   ];
-};
+}

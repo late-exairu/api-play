@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useDebouncedCallback } from "use-debounce";
 import axios from "axios";
 import Card from "./Card";
-import { CardData } from "./types";
+import { ICardData } from "./types";
 
 function App() {
   const [cardSet, setCardSet] = useState<string>("lci");
@@ -91,7 +91,7 @@ function App() {
       {isFetching && <div>Fetching...</div>}
 
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:grid-cols-5">
-        {data?.data.map((card: CardData) => (
+        {data?.data.map((card: ICardData) => (
           <Card key={card?.id} card={card} />
         ))}
       </div>
