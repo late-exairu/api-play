@@ -32,8 +32,8 @@ function App() {
 
   return (
     <div className="py-1">
-      <h1 className="mt-5 text-3xl font-bold">MTG Standard cards search</h1>
-      <div className="my-10 flex flex-wrap gap-2">
+      <h1 className="mt-10 text-3xl font-bold">MTG Standard cards search</h1>
+      <div className="my-6 flex flex-wrap gap-2">
         <div className="flex flex-col">
           <label className="text-sm">Card name</label>
           <input
