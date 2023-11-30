@@ -18,7 +18,7 @@ export default function Card({ card }: { card: CardData }) {
             e.preventDefault();
             toggleFlip();
           }}
-          className="absolute -bottom-3 left-1/2 z-10 flex h-9 w-9 -translate-x-1/2 items-center justify-center rounded-3xl bg-slate-900 lg:rounded-full"
+          className="absolute -bottom-3 left-1/2 z-10 flex h-9 w-9 -translate-x-1/2 items-center justify-center rounded-3xl bg-slate-900 transition-transform hover:rotate-45 lg:rounded-full"
         >
           <FaArrowsRotate className="fill-slate-200 text-xl" />
         </button>
