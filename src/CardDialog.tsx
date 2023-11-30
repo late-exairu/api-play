@@ -3,7 +3,15 @@ import { ICardData } from "./types";
 import CardFaces from "./CardFaces";
 
 export default function CardDialog(card: ICardData) {
-  const { oracle_text, flavor_text, artist, name } = card;
+  const {
+    oracle_text,
+    type_line,
+    flavor_text,
+    artist,
+    name,
+    power,
+    toughness,
+  } = card;
 
   return (
     <Dialog.Root>
@@ -17,16 +25,33 @@ export default function CardDialog(card: ICardData) {
               <div className="max-w-[400px] flex-1">
                 <CardFaces {...card} />
               </div>
+
               <div className="flex-1">
-                Name:{name}
-                <br />
-                Oracle:{oracle_text}
-                <br />
-                Flavor text: {flavor_text}
-                <br />
-                Artist:{artist}
+                <p className="text-md mb-4 font-medium">{name}</p>
+
+                {type_line && (
+                  <p className="font-md my-4 text-sm">{type_line}</p>
+                )}
+
+                {oracle_text && (
+                  <p className="font-md text-md my-4 text-sm">{oracle_text}</p>
+                )}
+                {flavor_text && (
+                  <p className="my-4 text-sm italic">{flavor_text}</p>
+                )}
+                {artist && (
+                  <p className="mt-4 text-sm">
+                    <span className="italic">Illustrated by:</span> {artist}
+                  </p>
+                )}
+                {power && toughness && (
+                  <p className="text-md mt-4 font-medium">
+                    {power}/{toughness}
+                  </p>
+                )}
               </div>
             </div>
+
             <Dialog.Close asChild>
               <button
                 className="text-violet hover:bg-violet4 focus:shadow-violet7 absolute right-[10px] top-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"

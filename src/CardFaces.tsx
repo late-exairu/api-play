@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaArrowsRotate } from "react-icons/fa6";
 import { ICardData } from "./types";
 
-export default function CardFaces(card: ICardData, flipped: boolean) {
+export default function CardFaces(card: ICardData) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   function toggleFlip() {
