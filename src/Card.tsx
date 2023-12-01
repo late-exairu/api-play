@@ -9,7 +9,7 @@ export default function Card({ card }: { card: ICardData }) {
 
       <CardFaces {...card} />
 
-      <CardDialog className="absolute left-0 top-0 z-50 bg-sky-100" {...card} />
+      <CardDialog {...card} />
     </div>
   );
 }
