@@ -15,7 +15,7 @@ export default function CardDialog(card: ICardData) {
         <Dialog.Overlay className="data-[state=open]:animate-overlayShow fixed inset-0 z-10 grid place-items-center overflow-y-auto bg-slate-100/80 py-5 backdrop-blur-[2px]">
           <Dialog.Content className="data-[state=open]:animate-contentShow relative z-20 w-[90vw] max-w-[600px] rounded-[6px] bg-white p-[25px] text-slate-800 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
             <div className="flex flex-col gap-2 sm:flex-row sm:gap-5">
-              <div className="max-w-[400px] flex-1">
+              <div className="mx-auto mb-4 w-full max-w-[300px] flex-1 sm:m-0">
                 <CardFaces {...card} />
               </div>
 

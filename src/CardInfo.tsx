@@ -17,7 +17,9 @@ export default function CardInfo(card: ICardText) {
     <>
       <div className="mb-4 flex justify-between text-lg font-medium">
         <p className="">{name}</p>
-        {mana_cost && <StringParse text={mana_cost} />}
+        {mana_cost && (
+          <StringParse className="whitespace-nowrap" text={mana_cost} />
+        )}
       </div>
 
       {type_line && <p className="font-md my-4">{type_line}</p>}
