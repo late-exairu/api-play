@@ -9,7 +9,7 @@ export interface ICardData {
   power?: string;
   toughness?: string;
   image_uris?: {
-    normal?: string;
+    normal: string;
   };
   card_faces: ICardText[];
 }
