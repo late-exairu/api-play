@@ -1,17 +1,10 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { ICardData } from "./types";
+import { ICardData, ICardText } from "./types";
 import CardFaces from "./CardFaces";
+import CardInfo from "./CardInfo";
 
 export default function CardDialog(card: ICardData) {
-  const {
-    oracle_text,
-    type_line,
-    flavor_text,
-    artist,
-    name,
-    power,
-    toughness,
-  } = card;
+  const { card_faces } = card;
 
   return (
     <Dialog.Root>
@@ -26,35 +19,28 @@ export default function CardDialog(card: ICardData) {
                 <CardFaces {...card} />
               </div>
 
-              <div className="flex-1">
-                <p className="text-md mb-4 font-medium">{name}</p>
+              <div className="flex-1 text-sm">
+                {card_faces && card_faces.length > 1 ? (
+                  card_faces.map(
+                    (face: ICardText, index: number): JSX.Element => (
+                      <>
+                        <CardInfo {...face} key={index} />
 
-                {type_line && (
-                  <p className="font-md my-4 text-sm">{type_line}</p>
-                )}
-
-                {oracle_text && (
-                  <p className="font-md text-md my-4 text-sm">{oracle_text}</p>
-                )}
-                {flavor_text && (
-                  <p className="my-4 text-sm italic">{flavor_text}</p>
-                )}
-                {artist && (
-                  <p className="mt-4 text-sm">
-                    <span className="italic">Illustrated by:</span> {artist}
-                  </p>
-                )}
-                {power && toughness && (
-                  <p className="text-md mt-4 font-medium">
-                    {power}/{toughness}
-                  </p>
+                        {index < card_faces.length - 1 ? (
+                          <hr className="my-4" />
+                        ) : null}
+                      </>
+                    ),
+                  )
+                ) : (
+                  <CardInfo {...card} />
                 )}
               </div>
             </div>
 
             <Dialog.Close asChild>
               <button
-                className="text-violet hover:bg-violet4 focus:shadow-violet7 absolute right-[10px] top-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
+                className="absolute -right-2 -top-2 inline-flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-white drop-shadow-md focus:outline-none"
                 aria-label="Close"
               >
                 X
