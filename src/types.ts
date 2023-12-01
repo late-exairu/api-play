@@ -11,7 +11,7 @@ export interface ICardData {
   image_uris?: {
     normal: string;
   };
-  card_faces?: ICardText[] | undefined;
+  card_faces: ICardText[] | undefined;
 }
 
 export interface ICardText {
