@@ -34,7 +34,7 @@ export default function CardFaces(card: ICardData) {
           alt={card?.name}
           loading="lazy"
           src={
-            card?.image_uris
+            card?.image_uris?.normal
               ? card?.image_uris?.normal
               : card?.card_faces[0]?.image_uris?.normal
           }
