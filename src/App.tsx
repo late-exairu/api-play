@@ -6,8 +6,43 @@ import axios from "axios";
 import Card from "./Card";
 import { ICardData } from "./types";
 
+const sets = [
+  {
+    code: "mkm",
+    name: "Murders at Karlov Manor",
+  },
+  {
+    code: "lci",
+    name: "The Lost Caverns of Ixalan",
+  },
+  {
+    code: "woe",
+    name: "Wilds of Eldraine",
+  },
+  {
+    code: "mat",
+    name: "March of the Machine: The Aftermath",
+  },
+  {
+    code: "mom",
+    name: "March of the Machine",
+  },
+  {
+    code: "one",
+    name: "Phyrexia: All Will Be One",
+  },
+  {
+    code: "bro",
+    name: "The Brothers' War",
+  },
+  {
+    code: "dmu",
+    name: "Dominaria United",
+  },
+];
+
 function App() {
-  const [cardSet, setCardSet] = useState<string>("lci");
+  const [cardSet, setCardSet] = useState<string>(sets[0].code);
   const [cardRarity, setCardRarity] = useState<string>("");
   const [cardName, setCardName] = useState<string>("");
   const [cardsPage, setCardsPage] = useState<number>(1);
@@ -57,13 +92,11 @@ function App() {
               setCardsPage(1);
             }}
           >
-            <option value="lci">The Lost Caverns of Ixalan</option>
-            <option value="woe">Wilds of Eldraine</option>
-            <option value="mat">March of the Machine: The Aftermath</option>
-            <option value="mom">March of the Machine</option>
-            <option value="one">Phyrexia: All Will Be One </option>
-            <option value="bro">The Brothers' War</option>
-            <option value="dmu">Dominaria United</option>
+            {sets.map((set) => (
+              <option key={set.code} value={set.code}>
+                {set.name}
+              </option>
+            ))}
           </select>
         </div>
 
