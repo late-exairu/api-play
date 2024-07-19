@@ -8,6 +8,14 @@ import { ICardData } from "./types";
 
 const sets = [
   {
+    code: "big",
+    name: "The Big Score",
+  },
+  {
+    code: "otj",
+    name: "Outlaws of Thunder Junction",
+  },
+  {
     code: "mkm",
     name: "Murders at Karlov Manor",
   },
