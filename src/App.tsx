@@ -8,6 +8,10 @@ import { ICardData } from "./types";
 
 const sets = [
   {
+    code: "blb",
+    name: "Bloomburrow",
+  },
+  {
     code: "big",
     name: "The Big Score",
   },
